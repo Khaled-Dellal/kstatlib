@@ -15,22 +15,6 @@ def rgb_back(rgb):
 def time_till_now():
  print(datetime.now()-start)
 
-class DzTree():
- """This is dedicated to be the runing representation of the CART tree applied to y (binary) and continuous predictors x1, x2,... """
- def __init__(self, the_csv_name):
-  self.DzTree=tk.Tk()
-
-class node(tk.Tk):
- def __init__(self):
-  tk.Tk.__init__(self)
-  self.creer_widgets()
- 
- def creer_widgets(self):
-  self.label=tk.Label(self, text="DJADOGH Python ! ")
-  self.bouton=tk.Button(self, text='Quitter', command=self.quit)
-  self.label.pack()
-  self.bouton.pack()
-
 def read_txt(file_name):
  """This function assigns values found in the file 'file_name.txt' to a variable"""
  my_file=open(file_name+".txt", "r")
@@ -39,50 +23,39 @@ def read_txt(file_name):
  return y
 
 def print_list(vector):
- """This function will display values of a list on the console"""
- list(map(lambda x: print(x), vector))
- 
-variables=[]
-y=read_txt("Binary_variable")
-for i in range(1, 20):
- variables.append(read_txt("Continue_variable_"+str(i)))
+    """
+    This function will display values of a list on the console
 
-root=tk.Tk()
-root.geometry('1040x508')
-root.config(bg=rgb_back((238, 255, 204)))
-#rr=Tk() # We will change Tk() to tk.Tk() inside the functions below
+    Parameters:
+    ----------
+    vector : A list as argument
+    
+    Returns : 
+    ---------
+    Display the list value by value with line breaks
+    
+    """
+    list(map(lambda x: print(x), vector))
 
-
-#dataset=pd.read_csv("ratios2.csv", header=0, infer_datetime_format=True) #parse_dates=["Num"], index_col=["Num"]
-
-##default=dataset["Default"]
-#default=list(default)
-#print(default[1])
-#var1=list(dataset["Defaut"]
-##clns=list(dataset.columns)  
-#print(clns)
-##xxx=dataset[clns[0]]
-#print(xxx)
-#list(map(lambda x: print(x), xxx))
-##variables=[None]*len(clns)
-clns=["Defaut"]
-"""
-for i in range(len(clns)):
- variables[i]=dataset[clns[i]]
-
-#print_list(variables[1])
-#print(variables)
-print(variables[8][0])
-
-"""
 def sort_series_up(w):
- for i in range(len(w)-1):
-  for j in range(len(w)-1):
-   if w[j]>=w[j+1]:
-    v=w[j]
-    w[j]=w[j+1]
-    w[j+1]=v
-    del v
+    """Sort a variable (list of digits) from min to max
+
+    Parameters:
+    ----------
+    w : A list as argument
+    
+    Returns : 
+    ---------
+    Make w sorted from min to max
+    
+    """
+    for i in range(len(w)-1):
+           for j in range(len(w)-1):
+                if w[j]>=w[j+1]:
+                    v=w[j]
+                    w[j]=w[j+1]
+                    w[j+1]=v
+                    del v
 
 def min_value(series):
  """This function calculates the min value in a series"""
