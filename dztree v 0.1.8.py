@@ -58,26 +58,22 @@ def sort_series_up(w):
                     del v
 
 def min_value(series):
- """This function calculates the min value in a series"""
- y=[]
- for i in range(len(series)):
-  y.append(series[i])
- sort_series_up(y)
- x=y[0]
- del y
- return x
-
+    """
+    This function calculates the min value for a series
+    """
+    y=[]
+    for i in range(len(series)):
+        y.append(series[i])
+    sort_series_up(y)
+    x=y[0]
+    del y
+    return x
+ 
 def rank_of_min_value(series):
- """This function returns the order min value of a series
- y=series
- ranks=[i+1 for i in range(len(series))]
- new_dict={}
- for i in range(len(series)):
-  new_dict[y[i]]=ranks[i]
- rank_min=new_dict[min(y)]
- return rank_min
- """
- return series.index(min(series))+1
+    """
+    This function returns the order min value of a series
+    """
+    return series.index(min(series))+1
 
 def split_value(binary_series, c_series):
  """This function returns the value at which the series will be split"""
