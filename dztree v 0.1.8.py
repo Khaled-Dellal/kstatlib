@@ -2,11 +2,9 @@
 # This is the first version of my work 
 
 import os
-#from tkinter import *
 import tkinter as tk
 from datetime import datetime
 from operator import itemgetter#, attrgetter
-#import pandas as pd
 start=datetime.now()
 
 def rgb_back(rgb):
@@ -21,6 +19,25 @@ def read_txt(file_name):
  y=my_file.read()
  y=y.split("\n")
  return y
+
+def _drop_cols_too_nan(df, percent=50):
+    """ Drop colums with too many missing values
+    
+    Parameters
+    ----------
+    
+    df      : The name of pandas dataframe
+    percent : Excessive percentage of missing values per column, default value = 50%
+    
+    Returns
+    -------
+    The dataframe itself but without columns whose number of missing values exceeds the \
+    defined percentage in the parameter : 'percent'
+    
+    """
+    for y in list(df.columns):
+        if df[y].isnull().sum()>=(len(df)*(percent/100)):
+            df.drop(columns=y)
 
 def print_list(vector):
     """
