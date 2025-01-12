@@ -5,7 +5,8 @@ from scipy.stats import normaltest, shapiro
 import matplotlib.pyplot as plt
 
 def get_closest_values_to_mean(large_variable, size):
-    
+    """Getting a sub-sample whose values are closest to the mean
+    """
     m = np.mean(large_variable)
     distance = [abs(x - m) for x in large_variable]
     min_d=np.min(distance)
@@ -13,17 +14,17 @@ def get_closest_values_to_mean(large_variable, size):
     first_nearest = large_variable[min_d_idx]
     
     our_sub_sample=[first_nearest]
-    large_variable = large_variable[large_variable!=first_nearest]
+    large_variable = [x for x in large_variable if x!= first_nearest] #large_variable[large_variable!=first_nearest]
     
     for i in range(1, size):
         m = np.mean(large_variable)
-        distance = [abs(x - m) for x in large_variable[large_variable!=first_nearest]]
+        distance = [abs(x - m) for x in large_variable] #[large_variable!=first_nearest]]
         min_d=np.min(distance)
         min_d_idx = distance.index(min_d)
         first_nearest = large_variable[min_d_idx]
         
         our_sub_sample.append(first_nearest)
-        large_variable = large_variable[large_variable!=first_nearest]   
+        large_variable = [x for x in large_variable if x!= first_nearest] #large_variable[large_variable!=first_nearest]   
         
     return our_sub_sample
 
