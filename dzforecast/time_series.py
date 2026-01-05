@@ -1,5 +1,6 @@
 import statistics
 import numpy as np
+from scipy.stats import linregress, pearsonr, shapiro, norm, boxcox
 
 class TimeSeriesForecast(list):
     """
@@ -57,8 +58,8 @@ class TimeSeriesForecast(list):
       else:
         raise ValueError("The provided data should be a list, int or float")
     
-    def get_lambda_coef(series):
-        x=[series[i] for i in range(len(series))]
+    def get_lambda_coef(self):
+        x=[self[i] for i in range(len(self))]
         for i in range(len(x)-1):
             for j in range(len(x)-1):
                 if x[j]>=x[j+1]:
