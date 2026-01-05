@@ -56,7 +56,44 @@ class TimeSeriesForecast(list):
           self.append(new_data)
       else:
         raise ValueError("The provided data should be a list, int or float")
-
+    
+    def get_lambda_coef(series):
+        x=[series[i] for i in range(len(series))]
+        for i in range(len(x)-1):
+            for j in range(len(x)-1):
+                if x[j]>=x[j+1]:
+                    z=x[j]
+                    x[j]=x[j+1]
+                    x[j+1]=z
+        i=[j for j in range(1,len(x)+1)]
+        f=[(i[j]-0.375)/(len(x)+0.25) for j in range(len(x))]
+        u=[norm.ppf(f[i]) for i in range(len(x))]
+            
+        lambda_coef=0
+        width=3
+        step=width/6
+        k=lambda_coef-width
+        iteration=1
+        while iteration<=15:
+            r_vector=[]
+            lambda_vect=[]
+            while k<=lambda_coef+width:
+                if k==0:
+                    y=[np.log(i) for i in x]
+                else:
+                    y=[(i**k-1)/k for i in x]
+                r_vector.append(pearsonr(y, u)[0])
+                k+=step
+            k=lambda_coef-width
+            while k<=lambda_coef+width:
+                lambda_vect.append(k)
+                k+=step
+            lambda_coef=lambda_vect[r_vector.index(max(r_vector))]
+            width/=2
+            step/=3
+            k=lambda_coef-width
+            iteration+=1
+        return lambda_coef
 
 if __name__ == '__main__':
     # Example usage
